@@ -35,7 +35,7 @@ public class DomainDetailsPageMiner {
         requestCount = 1;
     }
 
-    public DomainList MineRequest(DomainList domainList, String searchParam, int searchIndex){
+    public DomainList MineRequest(DomainList domainList, String searchParam, int searchIndex, int numPages){
         if(searchIndex < 1) searchIndex = 1;
 
         String searchParamURLEncoded = URLEncoder.encode(searchParam);
@@ -105,7 +105,7 @@ public class DomainDetailsPageMiner {
         }
 
         requestCount++;
-        if(searchIndex < 50) domainList = MineRequest(domainList, searchParam, searchIndex += 10);
+        if(searchIndex < numPages * 10) domainList = MineRequest(domainList, searchParam, searchIndex += 10, numPages * 10);
 
         return domainList;
     }

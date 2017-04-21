@@ -19,8 +19,8 @@ public class Main {
         DomainDetailsPageMiner ddpm = new DomainDetailsPageMiner("https://www.googleapis.com/",
                 "https://www.google.com/", API_KEY, CX_CODE);
 
-        DomainDetails[] dl = ddpm.MineRequest(null, "Discrete Mathematics and Its Applications Seventh edition",
-                1).toArray();
+        DomainDetails[] dl = ddpm.MineRequest(null, "And then there were none Agatha Christie book",
+                1, 9).toArray();
 
         for(int i = 0; i < dl.length; i++){
             System.out.println(i + ":\n" + dl[i].link);
