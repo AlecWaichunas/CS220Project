@@ -14,6 +14,6 @@ public interface LinkedListIntereface<T> {
     void clear();
     int getFrequencyOf(T anEntry);
     boolean contains(T anEntry);
-    T[] toArray();
+    Object[] toArray();
 
 }

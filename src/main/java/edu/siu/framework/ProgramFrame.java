@@ -1,5 +1,7 @@
 package edu.siu.framework;
 
+import edu.siu.google.query.DomainDetailsPageMiner;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -8,21 +10,25 @@ import java.awt.*;
  */
 public class ProgramFrame {
 
-    public ProgramFrame(){
+    private static final int WIDTH = 750;
+    private static final int HEIGHT = 550;
+
+    public ProgramFrame(DomainDetailsPageMiner dpm){
         JFrame north = new JFrame("North");
 
         north.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //north.setContentPane(np);
-        north.add(new EntryPanel(), BorderLayout.NORTH);
-        north.add(new FramePanel(), BorderLayout.SOUTH);
+        FramePanel bookLists = new FramePanel(WIDTH - 50);
+        north.add(new EntryPanel(dpm, bookLists), BorderLayout.NORTH);
+        north.add(new SearchButtons(WIDTH - 50));
+        JScrollPane jsp = new JScrollPane(bookLists, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        jsp.setPreferredSize(new Dimension(WIDTH - 50, HEIGHT-  200));
+        north.add(jsp, BorderLayout.SOUTH);
         
-        north.setSize(1000, 550);
+        north.setSize(WIDTH, HEIGHT);
+        north.setResizable(false);
         north.setVisible(true);
         north.setLayout(new FlowLayout());
-    }
-
-    public static void main(String  args[]){
-        new ProgramFrame();
     }
 
 

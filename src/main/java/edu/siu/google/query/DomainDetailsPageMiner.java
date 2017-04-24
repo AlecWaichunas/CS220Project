@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import edu.siu.datastructures.LinkedList;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -14,33 +15,31 @@ import java.util.Iterator;
  */
 public class DomainDetailsPageMiner {
 
+    private static final String API_KEY = "AIzaSyC2LUS6c0VpzqXvuq4IxhraiEQegnS9sJ8";
+    private static final String CX_CODE = "009490387646566916815:kvn4wlmj7zw";
+
     public String baseUrl;
     public String googleUrl;
 
-    public String googleKey;
-    public String googleEngineCode;
     public int requestCount;
 
     public String lastOutput;
     public JsonParser parser;
 
-    public DomainDetailsPageMiner(String baseUrl, String googleUrl,
-                            String googleKey, String googleEngineKey){
+    public DomainDetailsPageMiner(String baseUrl, String googleUrl){
         this.baseUrl = baseUrl;
         this.googleUrl = googleUrl;
-        this.googleKey = googleKey;
-        this.googleEngineCode = googleEngineKey;
 
         parser = new JsonParser();
         requestCount = 1;
     }
 
-    public DomainList MineRequest(DomainList domainList, String searchParam, int searchIndex, int numPages){
+    public LinkedList<DomainDetails> MineRequest(LinkedList<DomainDetails> domainList, String searchParam, int searchIndex, int numPages){
         if(searchIndex < 1) searchIndex = 1;
 
         String searchParamURLEncoded = URLEncoder.encode(searchParam);
         String query = "customsearch/v1?" +
-        "key=" + this.googleKey + "&cx=" + this.googleEngineCode +
+        "key=" + API_KEY + "&cx=" + CX_CODE +
                 "&start=" + searchIndex +
                 "&q=" + searchParamURLEncoded;
 
@@ -50,7 +49,7 @@ public class DomainDetailsPageMiner {
         System.out.println("Mining Request#" + this.requestCount + ": "
                 + this.googleUrl + "/#q=" + searchParamURLEncoded);
 
-        if(domainList == null) domainList = new DomainList(50);
+        if(domainList == null) domainList = new LinkedList<DomainDetails>(50);
         JsonObject pageObject = parser.parse(apioutput).getAsJsonObject();
         JsonArray itemsArray = pageObject.getAsJsonArray("items");
 

@@ -1,21 +1,20 @@
-package edu.siu.google.query;
-
-import edu.siu.datastructures.LinkedListIntereface;
+package edu.siu.datastructures;
 
 /**
- * Created by Alec on 4/11/2017.
+ * Created by Alec on 4/22/2017.
  */
-public class DomainList implements LinkedListIntereface<DomainDetails> {
+public class LinkedList<E> implements LinkedListIntereface<E> {
+
 
     public int size;
     public int maxSize;
     public Node firstNode;
 
-    public DomainList(){
+    public LinkedList(){
         this(10);
     }
 
-    public DomainList(int maxSize){
+    public LinkedList(int maxSize){
         this.maxSize = maxSize;
         this.size = 0;
     }
@@ -32,7 +31,7 @@ public class DomainList implements LinkedListIntereface<DomainDetails> {
         return firstNode == null;
     }
 
-    public boolean add(DomainDetails newEntry) {
+    public boolean add(E newEntry) {
         boolean successful = false;
         if(size < maxSize){
             if(firstNode == null) {
@@ -47,8 +46,8 @@ public class DomainList implements LinkedListIntereface<DomainDetails> {
         return successful;
     }
 
-    public DomainDetails remove() {
-        DomainDetails removedNodeData = null;
+    public E remove() {
+        E removedNodeData = null;
         if(size > 0) {
             removedNodeData = firstNode.getData();
             firstNode = firstNode.next();
@@ -57,7 +56,7 @@ public class DomainList implements LinkedListIntereface<DomainDetails> {
         return removedNodeData;
     }
 
-    public boolean remove(DomainDetails anEntry) {
+    public boolean remove(E anEntry) {
         boolean success = false;
 
         Node currentNode = firstNode;
@@ -78,7 +77,7 @@ public class DomainList implements LinkedListIntereface<DomainDetails> {
         firstNode = null;
     }
 
-    public int getFrequencyOf(DomainDetails anEntry) {
+    public int getFrequencyOf(E anEntry) {
         int frquency = 0;
 
         Node currentNode = firstNode;
@@ -92,7 +91,7 @@ public class DomainList implements LinkedListIntereface<DomainDetails> {
         return frquency;
     }
 
-    public boolean contains(DomainDetails anEntry) {
+    public boolean contains(E anEntry) {
         boolean found = false;
 
         Node currentNode = firstNode;
@@ -107,8 +106,8 @@ public class DomainList implements LinkedListIntereface<DomainDetails> {
         return found;
     }
 
-    public DomainDetails[] toArray() {
-        DomainDetails[] detailsArray = new DomainDetails[size];
+    public Object[] toArray() {
+        Object[] detailsArray = new Object[size];
         Node currentNode = firstNode;
         int index = 0;
         while(currentNode != null){
@@ -121,19 +120,19 @@ public class DomainList implements LinkedListIntereface<DomainDetails> {
 
     private class Node{
 
-        private DomainDetails data;
+        private E data;
         private Node nextNode;
 
-        public Node(DomainDetails data, Node nextNode){
+        public Node(E data, Node nextNode){
             this.data = data;
             this.nextNode = nextNode;
         }
 
-        public void setData(DomainDetails data){
+        public void setData(E data){
             this.data = data;
         }
 
-        public DomainDetails getData(){
+        public E getData(){
             return data;
         }
 
