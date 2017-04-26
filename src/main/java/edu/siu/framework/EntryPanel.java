@@ -35,8 +35,9 @@ public class EntryPanel extends JPanel{
 
     private DomainDetailsPageMiner dpm;
     private FramePanel bookLists;
+    private SearchButtons searchButtons;
 
-    public EntryPanel(final DomainDetailsPageMiner dpm, final FramePanel bookLists){
+    public EntryPanel(final DomainDetailsPageMiner dpm, final FramePanel bookLists, final SearchButtons searchButtons){
          this.dpm = dpm;
          this.bookLists = bookLists;
          setPreferredSize(new Dimension(700, 100));
@@ -57,6 +58,7 @@ public class EntryPanel extends JPanel{
                      info += textFieldArray[i].getText() + " ";
 
                  LinkedList<DomainDetails> books = dpm.MineRequest(null, info, 1, 3);
+                 searchButtons.setBooks(books);
                  bookLists.addBooks(books);
 
              }

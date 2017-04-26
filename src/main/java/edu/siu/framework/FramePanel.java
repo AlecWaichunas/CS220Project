@@ -39,15 +39,13 @@ public class FramePanel extends JPanel{
 			JLabel l = new JLabel();
 			l.setText("Web Site:  " + myBook.formattedUrl + "\n");
 			JButton b = new JButton();
-			b.setSize(30, 30);
+			b.setPreferredSize(new Dimension(30, 30));
 			String imgIcon = myBook.og_image;
 			if(imgIcon == null) imgIcon = myBook.displayLink;
 			if(imgIcon == null) imgIcon = myBook.thumbnail;
-			if(imgIcon == null) imgIcon = "src/IconImg.png";
+			if(imgIcon == null) imgIcon = "src/download1.png";
 			ImageIcon download = new ImageIcon(imgIcon);
-			Image img = download.getImage();
-			Image img2 = img.getScaledInstance(b.getWidth(), b.getHeight(), Image.SCALE_DEFAULT);
-			b.setIcon(new ImageIcon(img2));
+			b.setIcon(download);
 
 			b.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
@@ -76,6 +74,11 @@ public class FramePanel extends JPanel{
 			this.add(p);
 		}
 
+		this.updateUI();
+	}
+
+	public void removePanels(){
+		this.removeAll();
 		this.updateUI();
 	}
 

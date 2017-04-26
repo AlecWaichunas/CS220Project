@@ -19,8 +19,9 @@ public class ProgramFrame {
         north.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //north.setContentPane(np);
         FramePanel bookLists = new FramePanel(WIDTH - 50);
-        north.add(new EntryPanel(dpm, bookLists), BorderLayout.NORTH);
-        north.add(new SearchButtons(WIDTH - 50));
+        SearchButtons searchButtons = new SearchButtons(WIDTH - 50, bookLists);
+        north.add(new EntryPanel(dpm, bookLists, searchButtons), BorderLayout.NORTH);
+        north.add(searchButtons, BorderLayout.CENTER);
         JScrollPane jsp = new JScrollPane(bookLists, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         jsp.setPreferredSize(new Dimension(WIDTH - 50, HEIGHT-  200));
         north.add(jsp, BorderLayout.SOUTH);

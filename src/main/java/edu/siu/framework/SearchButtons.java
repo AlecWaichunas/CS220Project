@@ -13,29 +13,58 @@ import java.awt.event.ActionListener;
  */
 public class SearchButtons extends JPanel {
 
+    private FramePanel framePanel;
+
     private LinkedList<JButton> buttons = new LinkedList<JButton>();
     private LinkedList<DomainDetails> books;
 
     public LinkedList<DomainDetails> sortedBooks;
 
-    public SearchButtons(int width){
+    public SearchButtons(int width, final FramePanel framePanel){
+        this.framePanel = framePanel;
         setLayout(new FlowLayout());
         setPreferredSize(new Dimension(width, 30));
 
-        JButton topResult = new JButton("Top Result");
+        JButton topResult = new JButton("Top Results");
         topResult.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 sortedBooks = books;
+                updateBooks();
             }
         });
+
+        /**
+         * See @DomainDetails class for properties
+         */
+
+        JButton title = new JButton("Title");
+        JButton keyWords = new JButton("Description"); //most key words in description
+        JButton fileFormat = new JButton("File Format");
+
         buttons.add(topResult);
 
         add(topResult);
+        add(title);
+        add(keyWords);
+        add(fileFormat);
 
     }
 
-    public void setDefaultLinkedList(LinkedList<DomainDetails> book){
+    public void setBooks(LinkedList<DomainDetails> books){
         this.books = books;
+        this.sortedBooks = books;
+    }
+
+    public void setDefaultLinkedList(LinkedList<DomainDetails> books){
+        this.books = books;
+    }
+
+    public void updateBooks(){
+        if(sortedBooks == null) return;
+        framePanel.removePanels();
+
+        framePanel.addBooks(sortedBooks);
+
     }
 
 
