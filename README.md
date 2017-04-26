@@ -2,8 +2,8 @@
 
 A project for Data Structures and Algorithms class.
 
-Created By:
+##Created By:
 
-Alec Waichunas
-Ryan Adams
-Robert Shaw
+*Alec Waichunas
+*Ryan Adams
+*Robert Shaw
