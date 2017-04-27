@@ -19,6 +19,7 @@ public class SearchButtons extends JPanel {
     private LinkedList<DomainDetails> books;
 
     public LinkedList<DomainDetails> sortedBooks;
+    private String keyWords = "";
 
     public SearchButtons(int width, final FramePanel framePanel){
         this.framePanel = framePanel;
@@ -67,6 +68,9 @@ public class SearchButtons extends JPanel {
 
     }
 
+    public void setKeyWords(String keyWords){
+        this.keyWords = keyWords;
+    }
 
 
 }

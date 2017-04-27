@@ -3,7 +3,7 @@ package edu.siu.google.query;
 /**
  * Created by Alec on 4/11/2017.
  */
-public class DomainDetails {
+public class DomainDetails implements Comparable<DomainDetails>{
 
     public String title;
     public String link;
@@ -17,4 +17,7 @@ public class DomainDetails {
     public String thumbnail;
     public String og_image;
 
+    public int compareTo(DomainDetails o) {
+        return displayLink.compareTo(o.displayLink);
+    }
 }

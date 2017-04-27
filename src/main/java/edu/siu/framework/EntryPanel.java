@@ -57,8 +57,10 @@ public class EntryPanel extends JPanel{
                  for(int i = 0; i < textFieldArray.length; i++)
                      info += textFieldArray[i].getText() + " ";
 
+                 if(info.equals("")) return;
                  LinkedList<DomainDetails> books = dpm.MineRequest(null, info, 1, 3);
                  searchButtons.setBooks(books);
+                 searchButtons.setKeyWords(info);
                  bookLists.addBooks(books);
 
              }
