@@ -1,5 +1,6 @@
 package edu.siu.framework;
 
+import com.sun.java.browser.plugin2.DOM;
 import edu.siu.datastructures.LinkedList;
 import edu.siu.datastructures.PriorityQueue;
 import edu.siu.google.query.DomainDetails;
@@ -44,9 +45,9 @@ public class SearchButtons extends JPanel {
         JButton title = new JButton("Title");
         title.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DomainDetails[] books = sortedBooks.toArray(DomainDetails.class);
-                QuickSort.Sort(books, 0, sortedBooks.getCurrentSize() - 1);
-                sortedBooks = LinkedList.ArrayToLinkedList(books);
+                DomainDetails[] myBooks = books.toArray(DomainDetails.class);
+                QuickSort.Sort(DomainDetails.LinkComparator, myBooks, 0, sortedBooks.getCurrentSize() - 1);
+                sortedBooks = LinkedList.ArrayToLinkedList(myBooks);
                 updateBooks();
             }
         });
@@ -54,23 +55,26 @@ public class SearchButtons extends JPanel {
         JButton fileFormat = new JButton("File Format"); //use priority queue
         fileFormat.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e){
+        	    //creates priority queue
+                sortedBooks.clear();
         		PriorityQueue<DomainDetails> queue = new PriorityQueue<DomainDetails>();
-        		for(DomainDetails d : books.toArray()){
+        		//sorts the books in the priority queue
+        		for(DomainDetails d : books.toArray(DomainDetails.class)){
         			queue.add(d);
         		}
-        		for(DomainDetails d : queue.toArray()){
+        		//adds books linked list
+        		for(int i = 0; i < queue.getSize(); i++){
         			sortedBooks.add(queue.remove());
         		}
-        		/*int size = books.size;
-        		for(int i = 0; i < size; i++){
-        			queue.add(books.remove());
-        		}
-        		sortedBooks.add(queue.remove());*/
+        		System.out.println(sortedBooks.size);
+
         		updateBooks();
         	}
         });
 
         buttons.add(topResult);
+        buttons.add(title);
+        buttons.add(fileFormat);
 
         //adds every search term to it
         add(topResult);

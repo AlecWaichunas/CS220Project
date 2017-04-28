@@ -1,5 +1,7 @@
 package edu.siu.sortingalgorithms;
 
+import java.util.Comparator;
+
 /**
  * Created by Alec on 4/27/2017.
  */
@@ -14,7 +16,7 @@ public class InserstionSort {
      * @param last the ending element to sort in the partition
      * @param <T> extends comparable so it can be sorted
      */
-    public static <T extends Comparable<? super T>> void sort(T[] myObjects, int first, int last){
+    public static <T extends Comparable<? super T>> void sort(Comparator comparator, T[] myObjects, int first, int last){
 
         //loops through 2nd element to the last
         for(int i = first + 1; i < last; i++){
@@ -24,7 +26,7 @@ public class InserstionSort {
 
             //moves this element through the sorted part and inserts it
             //in the middle
-            while(pos > first && min.compareTo(myObjects[pos - 1]) < 0){
+            while(pos > first && comparator.compare(min, myObjects[pos - 1]) < 0){
                 myObjects[pos] = myObjects[pos - 1];
                 pos--;
             }

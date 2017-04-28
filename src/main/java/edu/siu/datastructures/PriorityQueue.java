@@ -1,5 +1,6 @@
 package edu.siu.datastructures;
 
+import java.lang.reflect.Array;
 import java.util.Vector;
 
 public class PriorityQueue<E extends Comparable<? super E>> implements PriorityQueueInterface<E> {
@@ -23,15 +24,17 @@ public class PriorityQueue<E extends Comparable<? super E>> implements PriorityQ
 			queue.add(newEntry);
 		} else {
 			for(int i = 0; i < queue.size(); i++){
-				if(queue.get(i).compareTo(newEntry) > 0){
+				if(newEntry.compareTo(queue.get(i)) > 0){
 					queue.add(i, newEntry);
 					added = true;
+					break;
 				}
 			}
 			if(!added){
 				queue.add(newEntry);
 			}
 		}
+		size++;
 		
 	}
 	
@@ -39,6 +42,7 @@ public class PriorityQueue<E extends Comparable<? super E>> implements PriorityQ
 		E result = null;
 		if(!isEmpty()){
 			result = queue.remove(0);
+			size--;
 		}
 		return result;
 	}
@@ -67,8 +71,8 @@ public class PriorityQueue<E extends Comparable<? super E>> implements PriorityQ
 	}
 	
 	@SuppressWarnings("unchecked")
-	public E[] toArray(){
-		E[] newArray = (E[]) new Object[queue.size()];
+	public E[] toArray(Class c){
+		E[] newArray = (E[]) Array.newInstance(c, queue.size());
 		for(int i = 0; i < queue.size(); i++){
 			newArray[i] = queue.remove(0);
 		}

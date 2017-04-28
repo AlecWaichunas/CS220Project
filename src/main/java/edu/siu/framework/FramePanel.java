@@ -51,6 +51,7 @@ public class FramePanel extends JPanel{
 		for (int i = 1; i < books.length; i++) {
 			//current book that is creating a panel
 		    final DomainDetails myBook = books[i];
+		    if(myBook == null) continue;
 		    //create and set properties of panel
 			JPanel p = new JPanel();
 			p.setPreferredSize(new Dimension(width, 30));

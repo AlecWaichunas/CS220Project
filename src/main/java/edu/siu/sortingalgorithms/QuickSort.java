@@ -1,5 +1,9 @@
 package edu.siu.sortingalgorithms;
 
+import edu.siu.google.query.DomainDetails;
+
+import java.util.Comparator;
+
 /**
  * Created by Alec on 4/27/2017.
  */
@@ -8,6 +12,8 @@ public class QuickSort {
     //MIN_SIZE: insertion sort takes over
     // as quick sort is useless below this number
     private final static int MIN_SIZE = 5;
+
+    private static Comparator<?> Comparator;
 
     /**
      *
@@ -20,17 +26,17 @@ public class QuickSort {
      * @param <T> extends comparable so it can be sorted
      */
 
-    public static <T extends Comparable<? super T>> void Sort(T[] myObjects, int first, int last){
-
+    public static <T extends Comparable<? super T>> void Sort(Comparator comparator, T[] myObjects, int first, int last){
+        QuickSort.Comparator = comparator;
         //4 or less items else quick sort it
         if(last - first + 1 < MIN_SIZE) {
             //uses insertion sort
-            InserstionSort.sort(myObjects, first, last);
+            InserstionSort.sort(comparator, myObjects, first, last);
         }else{
-            int pivot = Partition(myObjects, first, last);
+            int pivot = Partition(comparator, myObjects, first, last);
 
-            Sort(myObjects, first, pivot - 1);
-            Sort(myObjects, pivot + 1, last);
+            Sort(comparator, myObjects, first, pivot - 1);
+            Sort(comparator, myObjects, pivot + 1, last);
         }
 
     }
@@ -43,12 +49,12 @@ public class QuickSort {
      * @param <T> extends comparable so it can be sorted
      * @return the pivot index in the partition
      */
-    private static <T extends Comparable<? super T>> int Partition(T[] myObjects, int first, int last){
+    private static <T extends Comparable<? super T>> int Partition(Comparator comparator, T[] myObjects, int first, int last){
         int mid = (first + last)/2;
         //order first, middle and last
-        Order(myObjects, first, mid);
-        Order(myObjects, mid, last);
-        Order(myObjects, first, mid);
+        Order(comparator, myObjects, first, mid);
+        Order(comparator, myObjects, mid, last);
+        Order(comparator, myObjects, first, mid);
 
         Swap(myObjects, mid, last - 1); //why below
         int pivotIndex = last - 1; // store the index of the original mid point
@@ -62,15 +68,15 @@ public class QuickSort {
         while(!done){
             //checks if everything on the left is less than the pivot;
             //if not then stop
-            while(myObjects[indexFromLeft].compareTo(pivot) < 0)
+            while(comparator.compare(myObjects[indexFromLeft], pivot) < 0)
                 indexFromLeft++;
             //checks if everything on the right is less than the pivot;
             //if not then stop
-            while(myObjects[indexFromRight].compareTo(pivot) < 0)
+            while(comparator.compare(myObjects[indexFromRight], pivot) > 0)
                 indexFromRight--;
             //makes sure that the indexes doesn't surpass boundaries
-            assert myObjects[indexFromLeft].compareTo(pivot) >= 0 &&
-                    myObjects[indexFromRight].compareTo(pivot) <= 0;
+            assert comparator.compare(myObjects[indexFromLeft], pivot) >= 0 &&
+                    comparator.compare(myObjects[indexFromRight], pivot) <= 0;
 
             //if the while loop did stop then switch the elements
             //otherwise end loop
@@ -98,8 +104,8 @@ public class QuickSort {
      * @param <T> extends Comparable so it can be sorted
      */
 
-    private static <T extends Comparable<? super T>> void Order(T[] myObjects, int i, int j){
-        if(myObjects[i].compareTo(myObjects[j]) > 0)
+    private static <T extends Comparable<? super T>> void Order(Comparator comparator, T[] myObjects, int i, int j){
+        if(comparator.compare(myObjects[i], myObjects[j]) > 0)
             Swap(myObjects, i, j);
 
     }
