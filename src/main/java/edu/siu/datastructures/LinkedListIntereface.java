@@ -1,9 +1,11 @@
 package edu.siu.datastructures;
 
 /**
- * Created by Akec on 4/11/2017.
+ * Created by Alec on 4/11/2017.
  */
 public interface LinkedListIntereface<T> {
+
+    //methods used in LinkedList
 
     int getCurrentSize();
     boolean isFull();
@@ -14,6 +16,6 @@ public interface LinkedListIntereface<T> {
     void clear();
     int getFrequencyOf(T anEntry);
     boolean contains(T anEntry);
-    Object[] toArray();
+    T[] toArray(Class c);
 
 }

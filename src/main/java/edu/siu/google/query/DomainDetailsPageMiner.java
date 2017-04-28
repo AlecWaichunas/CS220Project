@@ -15,17 +15,25 @@ import java.util.Iterator;
  */
 public class DomainDetailsPageMiner {
 
+    //API KEY AND SEARCH ENGINE KEY
     private static final String API_KEY = "AIzaSyC2LUS6c0VpzqXvuq4IxhraiEQegnS9sJ8";
     private static final String CX_CODE = "009490387646566916815:kvn4wlmj7zw";
 
+    //BASE URL and the google url
     public String baseUrl;
     public String googleUrl;
 
+    //how many total requests there are
     public int requestCount;
-
+    //the output and Json parser
     public String lastOutput;
     public JsonParser parser;
 
+    /**
+     *
+     * @param baseUrl the baseurl to parse
+     * @param googleUrl the google api url
+     */
     public DomainDetailsPageMiner(String baseUrl, String googleUrl){
         this.baseUrl = baseUrl;
         this.googleUrl = googleUrl;
@@ -34,25 +42,41 @@ public class DomainDetailsPageMiner {
         requestCount = 1;
     }
 
+    /**
+     * Gets the search results made by google
+     *
+     * @param domainList the found domains so far
+     * @param searchParam the search parameters to search for
+     * @param searchIndex what index to start from
+     * @param numPages the total amount of pages to search
+     * @return list of domains that have PDF in them
+     */
+
     public LinkedList<DomainDetails> MineRequest(LinkedList<DomainDetails> domainList, String searchParam, int searchIndex, int numPages){
+        //resets search index
         if(searchIndex < 1) searchIndex = 1;
 
-        String searchParamURLEncoded = URLEncoder.encode(searchParam);
+        //Encodes url and puts the custom search query together
+        String searchParamURLEncoded = URLEncoder.encode(searchParam + " PDF");
         String query = "customsearch/v1?" +
         "key=" + API_KEY + "&cx=" + CX_CODE +
                 "&start=" + searchIndex +
                 "&q=" + searchParamURLEncoded;
 
+        //calls the apiOutput and stores it
         String apioutput = GoogleClient.CallGoogleSearchApi(this.baseUrl, query);
         lastOutput = apioutput;
 
         System.out.println("Mining Request#" + this.requestCount + ": "
                 + this.googleUrl + "/#q=" + searchParamURLEncoded);
 
+        //creates domain list if it is the first call
         if(domainList == null) domainList = new LinkedList<DomainDetails>(50);
+        //uses google Java JSon parser to get values
         JsonObject pageObject = parser.parse(apioutput).getAsJsonObject();
         JsonArray itemsArray = pageObject.getAsJsonArray("items");
 
+        //uses google Java JSon parser to get values
         for(Iterator<JsonElement> iter = itemsArray.iterator(); iter.hasNext();){
 
             JsonObject domainObject = iter.next().getAsJsonObject();
@@ -86,7 +110,7 @@ public class DomainDetailsPageMiner {
 
 
             if(!link.toLowerCase().contains("pdf")) continue;
-
+            // Sets all of DomainDetails properties and stores it to the array
             DomainDetails domainDetails = new DomainDetails();
             domainDetails.title = title;
             domainDetails.link = link;
@@ -104,7 +128,8 @@ public class DomainDetailsPageMiner {
         }
 
         requestCount++;
-        if(searchIndex < numPages * 10) domainList = MineRequest(domainList, searchParam, searchIndex += 10, numPages * 10);
+        //calls the method again if the amount of domains were less than the domaain calls
+        if(searchIndex < numPages * 10) domainList = MineRequest(domainList, searchParam, searchIndex + 10, numPages);
 
         return domainList;
     }

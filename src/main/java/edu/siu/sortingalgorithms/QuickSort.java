@@ -7,7 +7,7 @@ public class QuickSort {
 
     //MIN_SIZE: insertion sort takes over
     // as quick sort is useless below this number
-    private final static int MIN_SIZE = 4;
+    private final static int MIN_SIZE = 5;
 
     /**
      *
@@ -50,7 +50,7 @@ public class QuickSort {
         Order(myObjects, mid, last);
         Order(myObjects, first, mid);
 
-        Swap(myObjects, mid, last - 1); //why????
+        Swap(myObjects, mid, last - 1); //why below
         int pivotIndex = last - 1; // store the index of the original mid point
         T pivot = myObjects[pivotIndex]; //store the original mid point;
 

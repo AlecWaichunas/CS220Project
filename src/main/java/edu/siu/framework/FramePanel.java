@@ -6,7 +6,6 @@ import edu.siu.google.query.DomainDetails;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.print.Book;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -18,28 +17,51 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Created by Ryan
+ * Edited by Alec on 4/21/2017
+ */
+
 public class FramePanel extends JPanel{
 
 	private int width;
 
+	/**
+	 *
+	 * @param width width of the panel
+	 */
 	public FramePanel(int width) {
 		this.width = width;
 		this.setMinimumSize(new Dimension(width, 600));
 	}
 
+	/**
+	 * add books to be showed off
+	 *
+	 * @param book books that are being shown
+	 */
 	public void addBooks(LinkedList<DomainDetails> book){
-		Object[] books = book.toArray();
+		//puts the books into an array
+		DomainDetails[] books = book.toArray(DomainDetails.class);
+		//updates size of the panel for JScrollpane
 		this.setPreferredSize(new Dimension(width, books.length * 35));
+
+		//creates the panels and shows them
 		List<JPanel> panels = new ArrayList<JPanel>();
 		for (int i = 1; i < books.length; i++) {
-		    final DomainDetails myBook = (DomainDetails) books[i];
+			//current book that is creating a panel
+		    final DomainDetails myBook = books[i];
+		    //create and set properties of panel
 			JPanel p = new JPanel();
 			p.setPreferredSize(new Dimension(width, 30));
 			p.setName("panel " +String.valueOf(i));
+			//inner data of jpanel
 			JLabel l = new JLabel();
 			l.setText("Web Site:  " + myBook.formattedUrl + "\n");
+			//creation of button that goes to the domain
 			JButton b = new JButton();
 			b.setPreferredSize(new Dimension(30, 30));
+			//sets the img TODO get this to work
 			String imgIcon = myBook.og_image;
 			if(imgIcon == null) imgIcon = myBook.displayLink;
 			if(imgIcon == null) imgIcon = myBook.thumbnail;
@@ -47,6 +69,7 @@ public class FramePanel extends JPanel{
 			ImageIcon download = new ImageIcon(imgIcon);
 			b.setIcon(download);
 
+			//opens the browser when button is pressed
 			b.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent e) {
                     try {
@@ -59,24 +82,27 @@ public class FramePanel extends JPanel{
                 }
             });
 
+			//color of the panels
 			if(i % 2 == 0){
 				p.setBackground(Color.LIGHT_GRAY);
 			}
 			else{
 				p.setBackground(Color.WHITE);
 			}
+
+			//adds everything to the correct parent
 			p.add(l);
 			p.add(b);
-			panels.add(p);
-		}
-
-		for (JPanel p : panels) {
 			this.add(p);
 		}
 
+		//updateUI so it shows
 		this.updateUI();
 	}
 
+	/**
+	 * removes all panels and updates the UI
+	 */
 	public void removePanels(){
 		this.removeAll();
 		this.updateUI();

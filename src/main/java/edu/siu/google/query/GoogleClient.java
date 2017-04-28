@@ -14,15 +14,24 @@ import java.net.URLConnection;
  */
 public class GoogleClient  {
 
+    /**
+     *
+     * @param baseUrl google api url
+     * @param query search query
+     * @return the apioutput
+     */
     public static String CallGoogleSearchApi(String baseUrl, String query){
         String apiOutput = null;
 
         try {
+            //creates the connection
             URL url = new URL(baseUrl + query);
             URLConnection urlConnection = url.openConnection();
+            //opens the input stream, so we can get the api JSON output
             InputStream is = urlConnection.getInputStream();
             if(is != null) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+                //reads line by line and stores the JSON output
                 StringBuffer output = new StringBuffer();
                 String t;
                 while (true) {
@@ -43,6 +52,7 @@ public class GoogleClient  {
         return apiOutput;
     }
 
+    //NOT IMPLEMENTED YET
     public static boolean DownloadPDFFromURL(String Url){
         return false;
     }

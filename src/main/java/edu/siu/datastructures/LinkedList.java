@@ -1,6 +1,8 @@
 package edu.siu.datastructures;
 
 
+import java.lang.reflect.Array;
+
 /**
  * Data Structure that links each node to each other
  * Node 1 stores Node 2 stores Node 3 stor...
@@ -10,6 +12,12 @@ package edu.siu.datastructures;
  */
 public class LinkedList<E> implements LinkedListIntereface<E> {
 
+    /**
+     * Creates a linked list based on an array
+     * @param a
+     * @param <T>
+     * @return
+     */
     public static <T> LinkedList<T> ArrayToLinkedList(T[] a){
         LinkedList<T> linkedList = new LinkedList<T>(a.length);
 
@@ -124,10 +132,19 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
         return success;
     }
 
+    /**
+     * clears the linked list
+     */
     public void clear() {
         firstNode = null;
     }
 
+    /**
+     * Gets the number of times it is in the linked list
+     *
+     * @param anEntry the data you want to know how many times its repeated
+     * @return the number of times it is stored in the linked list
+     */
     public int getFrequencyOf(E anEntry) {
         int frquency = 0;
 
@@ -142,6 +159,11 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
         return frquency;
     }
 
+    /**
+     * Checks if the linked list contains the entry
+     * @param anEntry the entry your checking
+     * @return true if the linked list contains anEntry
+     */
     public boolean contains(E anEntry) {
         boolean found = false;
 
@@ -157,8 +179,12 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
         return found;
     }
 
-    public Object[] toArray() {
-        Object[] detailsArray = new Object[size];
+    /**
+     * Turns the linkedlist into an array
+     * @return object Array
+     */
+    public E[] toArray(Class c) {
+        E[] detailsArray = (E[]) Array.newInstance(c, size);
         Node currentNode = firstNode;
         int index = 0;
         while(currentNode != null){
@@ -169,15 +195,26 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
         return detailsArray;
     }
 
+    /**
+     * Node class used to store data
+     */
     private class Node{
 
+        //stores the data and the next node linked to this one
         private E data;
         private Node nextNode;
 
+        /**
+         * Constructor sets params
+         * @param data the data you store in this node
+         * @param nextNode the next node in the linked list
+         */
         public Node(E data, Node nextNode){
             this.data = data;
             this.nextNode = nextNode;
         }
+
+        // GETTERS AND SETTERS
 
         public void setData(E data){
             this.data = data;

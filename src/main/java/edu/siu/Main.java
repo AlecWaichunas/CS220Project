@@ -4,7 +4,7 @@ import edu.siu.framework.ProgramFrame;
 import edu.siu.google.query.DomainDetailsPageMiner;
 
 /**
- * Created by Akec on 4/24/2017.
+ * Created by Alec on 4/24/2017.
  */
 public class Main {
 

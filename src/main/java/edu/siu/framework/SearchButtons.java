@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 /**
  * Created by Alec on 4/22/2017.
+ * Edited by Ryan and Robert
  */
 public class SearchButtons extends JPanel {
 
@@ -42,8 +43,8 @@ public class SearchButtons extends JPanel {
         JButton title = new JButton("Title");
         title.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DomainDetails[] books = (DomainDetails[]) sortedBooks.toArray();
-                QuickSort.Sort(books, 0, sortedBooks.getCurrentSize());
+                DomainDetails[] books = sortedBooks.toArray(DomainDetails.class);
+                QuickSort.Sort(books, 0, sortedBooks.getCurrentSize() - 1);
                 sortedBooks = LinkedList.ArrayToLinkedList(books);
                 updateBooks();
             }
@@ -53,6 +54,7 @@ public class SearchButtons extends JPanel {
 
         buttons.add(topResult);
 
+        //adds every search term to it
         add(topResult);
         add(title);
         add(keyWords);
@@ -60,15 +62,26 @@ public class SearchButtons extends JPanel {
 
     }
 
+    /**
+     * Sets default for books and sorted books
+     * @param books default books
+     */
     public void setBooks(LinkedList<DomainDetails> books){
         this.books = books;
         this.sortedBooks = books;
     }
 
+    /**
+     * sets the default data
+     * @param books the DomainDetails
+     */
     public void setDefaultLinkedList(LinkedList<DomainDetails> books){
         this.books = books;
     }
 
+    /**
+     * Updates the UI books after they were sorted
+     */
     public void updateBooks(){
         if(sortedBooks == null) return;
         framePanel.removePanels();
@@ -77,6 +90,10 @@ public class SearchButtons extends JPanel {
 
     }
 
+    /**
+     * sets the search terms used
+     * @param keyWords search terms used
+     */
     public void setKeyWords(String keyWords){
         this.keyWords = keyWords;
     }
