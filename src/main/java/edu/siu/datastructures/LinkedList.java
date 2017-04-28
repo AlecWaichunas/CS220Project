@@ -83,9 +83,7 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
 
     public boolean add(E newEntry) {
         boolean successful = false;
-        System.out.println(size + " < " + maxSize);
         if(size < maxSize){
-            System.out.println("Good");
             if(firstNode == null) {
                 firstNode = new Node(newEntry, null);
             }else{
@@ -196,6 +194,10 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
             currentNode = currentNode.next();
         }
         return detailsArray;
+    }
+
+    public void setMaxSize(int maxSize){
+        this.maxSize = maxSize;
     }
 
     /**

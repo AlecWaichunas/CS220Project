@@ -45,7 +45,9 @@ public class SearchButtons extends JPanel {
         title.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 DomainDetails[] myBooks = books.toArray(DomainDetails.class);
+                //sorts them for quick sort
                 QuickSort.Sort(DomainDetails.LinkComparator, myBooks, 0, sortedBooks.getCurrentSize() - 1);
+                //puts the books back into a linked list
                 sortedBooks = LinkedList.ArrayToLinkedList(myBooks);
                 updateBooks();
             }
@@ -61,12 +63,12 @@ public class SearchButtons extends JPanel {
         			queue.add(d);
         		}
         		//adds books linked list
-                sortedBooks.remove();
-        		for(int i = 0; i < queue.getSize(); i++){
+                sortedBooks.clear();
+                sortedBooks.setMaxSize(50);
+        		while(!queue.isEmpty()){
         		    DomainDetails d = queue.remove();
         			sortedBooks.add(d);
         		}
-        		System.out.println(sortedBooks.size);
 
         		updateBooks();
         	}

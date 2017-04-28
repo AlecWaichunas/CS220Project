@@ -3,6 +3,11 @@ package edu.siu.datastructures;
 import java.lang.reflect.Array;
 import java.util.Vector;
 
+/**
+ * Created by Ryan
+ * Edited by Alec 4/28/2017
+ */
+
 public class PriorityQueue<E extends Comparable<? super E>> implements PriorityQueueInterface<E> {
 	
 	private int size;
