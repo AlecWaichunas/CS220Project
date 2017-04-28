@@ -2,6 +2,7 @@ package edu.siu.framework;
 
 import edu.siu.datastructures.LinkedList;
 import edu.siu.google.query.DomainDetails;
+import edu.siu.sortingalgorithms.QuickSort;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Akec on 4/22/2017.
+ * Created by Alec on 4/22/2017.
  */
 public class SearchButtons extends JPanel {
 
@@ -39,6 +40,14 @@ public class SearchButtons extends JPanel {
          */
 
         JButton title = new JButton("Title");
+        title.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DomainDetails[] books = (DomainDetails[]) sortedBooks.toArray();
+                QuickSort.Sort(books, 0, sortedBooks.getCurrentSize());
+                sortedBooks = LinkedList.ArrayToLinkedList(books);
+                updateBooks();
+            }
+        });
         JButton keyWords = new JButton("Description"); //most key words in description
         JButton fileFormat = new JButton("File Format");
 
