@@ -179,12 +179,18 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
         return found;
     }
 
+<<<<<<< HEAD
     /**
      * Turns the linkedlist into an array
      * @return object Array
      */
     public E[] toArray(Class c) {
         E[] detailsArray = (E[]) Array.newInstance(c, size);
+=======
+    @SuppressWarnings("unchecked")
+	public E[] toArray() {
+        E[] detailsArray =  (E[]) new Object[size];
+>>>>>>> Ryan
         Node currentNode = firstNode;
         int index = 0;
         while(currentNode != null){

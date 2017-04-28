@@ -1,6 +1,7 @@
 package edu.siu.framework;
 
 import edu.siu.datastructures.LinkedList;
+import edu.siu.datastructures.PriorityQueue;
 import edu.siu.google.query.DomainDetails;
 import edu.siu.sortingalgorithms.QuickSort;
 
@@ -50,7 +51,24 @@ public class SearchButtons extends JPanel {
             }
         });
         JButton keyWords = new JButton("Description"); //most key words in description
-        JButton fileFormat = new JButton("File Format");
+        JButton fileFormat = new JButton("File Format"); //use priority queue
+        fileFormat.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e){
+        		PriorityQueue<DomainDetails> queue = new PriorityQueue<DomainDetails>();
+        		for(DomainDetails d : books.toArray()){
+        			queue.add(d);
+        		}
+        		for(DomainDetails d : queue.toArray()){
+        			sortedBooks.add(queue.remove());
+        		}
+        		/*int size = books.size;
+        		for(int i = 0; i < size; i++){
+        			queue.add(books.remove());
+        		}
+        		sortedBooks.add(queue.remove());*/
+        		updateBooks();
+        	}
+        });
 
         buttons.add(topResult);
 

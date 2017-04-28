@@ -17,6 +17,14 @@ public class DomainDetails implements Comparable<DomainDetails> {
     public String image_link;
     public String thumbnail;
     public String og_image;
+    
+    public int compareTo(DomainDetails d){
+    	if(!this.fileFormat.equals("pdf")){
+    		return 0;
+    	} else if(this.fileFormat.equals("pdf") && d.fileFormat.equals("pdf")){
+    		return 0;
+    	} else return 1;
+	}
 
     /**
      * used to compare with other DomainDetails
