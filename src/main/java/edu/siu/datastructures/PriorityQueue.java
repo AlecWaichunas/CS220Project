@@ -20,6 +20,7 @@ public class PriorityQueue<E extends Comparable<? super E>> implements PriorityQ
 	}
 	
 	public void add(E newEntry) {
+		if(newEntry == null) return;
 		if(this.getSize() == 0){
 			queue.add(newEntry);
 		} else {

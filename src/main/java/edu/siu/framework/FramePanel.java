@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * Created by Ryan
+ * Created by Robert
  * Edited by Alec on 4/21/2017
  */
 
@@ -54,11 +54,12 @@ public class FramePanel extends JPanel{
 		    if(myBook == null) continue;
 		    //create and set properties of panel
 			JPanel p = new JPanel();
+			p.setLayout(new BorderLayout());
 			p.setPreferredSize(new Dimension(width, 30));
 			p.setName("panel " +String.valueOf(i));
 			//inner data of jpanel
 			JLabel l = new JLabel();
-			l.setText("Web Site:  " + myBook.formattedUrl + "\n");
+			l.setText("   " + myBook.title + "\n");
 			//creation of button that goes to the domain
 			JButton b = new JButton();
 			b.setPreferredSize(new Dimension(30, 30));
@@ -92,8 +93,8 @@ public class FramePanel extends JPanel{
 			}
 
 			//adds everything to the correct parent
-			p.add(l);
-			p.add(b);
+			p.add(l, BorderLayout.WEST);
+			p.add(b, BorderLayout.EAST);
 			this.add(p);
 		}
 

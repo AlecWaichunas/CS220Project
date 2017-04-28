@@ -1,6 +1,5 @@
 package edu.siu.framework;
 
-import com.sun.java.browser.plugin2.DOM;
 import edu.siu.datastructures.LinkedList;
 import edu.siu.datastructures.PriorityQueue;
 import edu.siu.google.query.DomainDetails;
@@ -51,20 +50,21 @@ public class SearchButtons extends JPanel {
                 updateBooks();
             }
         });
-        JButton keyWords = new JButton("Description"); //most key words in description
+        //JButton keyWords = new JButton("Description"); //most key words in description
         JButton fileFormat = new JButton("File Format"); //use priority queue
         fileFormat.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e){
         	    //creates priority queue
-                sortedBooks.clear();
         		PriorityQueue<DomainDetails> queue = new PriorityQueue<DomainDetails>();
         		//sorts the books in the priority queue
-        		for(DomainDetails d : books.toArray(DomainDetails.class)){
+        		for(DomainDetails d : sortedBooks.toArray(DomainDetails.class)){
         			queue.add(d);
         		}
         		//adds books linked list
+                sortedBooks.remove();
         		for(int i = 0; i < queue.getSize(); i++){
-        			sortedBooks.add(queue.remove());
+        		    DomainDetails d = queue.remove();
+        			sortedBooks.add(d);
         		}
         		System.out.println(sortedBooks.size);
 
@@ -79,7 +79,7 @@ public class SearchButtons extends JPanel {
         //adds every search term to it
         add(topResult);
         add(title);
-        add(keyWords);
+        //add(keyWords);
         add(fileFormat);
 
     }

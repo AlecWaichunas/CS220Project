@@ -16,7 +16,7 @@ public class DomainDetails implements Comparable<DomainDetails> {
 
     public static Comparator<DomainDetails> LinkComparator = new Comparator<DomainDetails>() {
         public int compare(DomainDetails o1, DomainDetails o2) {
-            return o2.link.compareTo(o1.link);
+            return o2.title.compareTo(o1.title);
         }
     };
 
@@ -35,9 +35,10 @@ public class DomainDetails implements Comparable<DomainDetails> {
 
 
     public int compareTo(DomainDetails o) {
-        if(this.equals("pdf")){
+        if(this.link == null) return 1;
+        if(this.link.toLowerCase().contains("pdf")){
             return 0;
-        } else if(o.equals("pdf") && this.equals("pdf")){
+        } else if(this.link.toLowerCase().contains("pdf") && o.link.toLowerCase().contains("pdf")){
             return 0;
         } else return 1;
     }

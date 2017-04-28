@@ -16,7 +16,7 @@ import java.util.Iterator;
 public class DomainDetailsPageMiner {
 
     //API KEY AND SEARCH ENGINE KEY
-    private static final String API_KEY = "AIzaSyAnT72x36xnl1RjJgGDFwAh5DL__tTPa0o";//"AIzaSyC2LUS6c0VpzqXvuq4IxhraiEQegnS9sJ8";
+    private static final String API_KEY = /*"AIzaSyAnT72x36xnl1RjJgGDFwAh5DL__tTPa0o";*/"AIzaSyC2LUS6c0VpzqXvuq4IxhraiEQegnS9sJ8";
     private static final String CX_CODE = "009490387646566916815:kvn4wlmj7zw";
 
     //BASE URL and the google url
