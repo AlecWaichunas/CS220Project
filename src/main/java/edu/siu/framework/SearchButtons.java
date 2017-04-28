@@ -44,11 +44,7 @@ public class SearchButtons extends JPanel {
         fileFormat.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e){
         		PriorityQueue<DomainDetails> queue = new PriorityQueue<DomainDetails>();
-        		DomainDetails[] books2 = new DomainDetails[books.size];
-        		for(int i = 0; i < books2.length; i++){
-        			// books2[i] = somehow get data from books linkedList
-        		}
-        		for(DomainDetails d : books2){
+        		for(DomainDetails d : books.toArray()){
         			queue.add(d);
         		}
         		for(DomainDetails d : queue.toArray()){

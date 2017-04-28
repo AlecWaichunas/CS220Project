@@ -106,8 +106,9 @@ public class LinkedList<E> implements LinkedListIntereface<E> {
         return found;
     }
 
-    public Object[] toArray() {
-        Object[] detailsArray = new Object[size];
+    @SuppressWarnings("unchecked")
+	public E[] toArray() {
+        E[] detailsArray =  (E[]) new Object[size];
         Node currentNode = firstNode;
         int index = 0;
         while(currentNode != null){
