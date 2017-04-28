@@ -95,7 +95,7 @@ public class DomainDetailsPageMiner {
             domainDetails.mime = mime;
             domainDetails.fileFormat = fileFormat;
             domainDetails.formattedUrl = formattedUrl;
-
+            
             domainDetails.image_link = imgUrl[0];
             domainDetails.thumbnail = imgUrl[1];
             domainDetails.og_image = imgUrl[2];

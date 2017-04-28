@@ -1,6 +1,7 @@
 package edu.siu.framework;
 
 import edu.siu.datastructures.LinkedList;
+import edu.siu.datastructures.PriorityQueue;
 import edu.siu.google.query.DomainDetails;
 
 import javax.swing.*;
@@ -39,7 +40,28 @@ public class SearchButtons extends JPanel {
 
         JButton title = new JButton("Title");
         JButton keyWords = new JButton("Description"); //most key words in description
-        JButton fileFormat = new JButton("File Format");
+        JButton fileFormat = new JButton("File Format"); //use priority queue
+        fileFormat.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e){
+        		PriorityQueue<DomainDetails> queue = new PriorityQueue<DomainDetails>();
+        		DomainDetails[] books2 = new DomainDetails[books.size];
+        		for(int i = 0; i < books2.length; i++){
+        			// books2[i] = somehow get data from books linkedList
+        		}
+        		for(DomainDetails d : books2){
+        			queue.add(d);
+        		}
+        		for(DomainDetails d : queue.toArray()){
+        			sortedBooks.add(queue.remove());
+        		}
+        		/*int size = books.size;
+        		for(int i = 0; i < size; i++){
+        			queue.add(books.remove());
+        		}
+        		sortedBooks.add(queue.remove());*/
+        		updateBooks();
+        	}
+        });
 
         buttons.add(topResult);
 
