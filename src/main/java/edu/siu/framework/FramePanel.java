@@ -12,10 +12,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 /**
  * Created by Robert
@@ -25,6 +22,9 @@ import javax.swing.JPanel;
 public class FramePanel extends JPanel{
 
 	private int width;
+	private Dimension panelSize,
+						innerPanelSize,
+						innerTextSize;
 
 	/**
 	 *
@@ -32,7 +32,11 @@ public class FramePanel extends JPanel{
 	 */
 	public FramePanel(int width) {
 		this.width = width;
+		System.out.println(width);
 		this.setMinimumSize(new Dimension(width, 600));
+		panelSize = new Dimension(width, 120);
+		innerPanelSize = new Dimension(width - 100, 120);
+		innerTextSize = new Dimension(width - 100, 25);
 	}
 
 	/**
@@ -44,7 +48,7 @@ public class FramePanel extends JPanel{
 		//puts the books into an array
 		DomainDetails[] books = book.toArray(DomainDetails.class);
 		//updates size of the panel for JScrollpane
-		this.setPreferredSize(new Dimension(width, books.length * 35));
+		this.setPreferredSize(new Dimension(width, books.length * 120));
 
 		//creates the panels and shows them
 		List<JPanel> panels = new ArrayList<JPanel>();
@@ -55,14 +59,11 @@ public class FramePanel extends JPanel{
 		    //create and set properties of panel
 			JPanel p = new JPanel();
 			p.setLayout(new BorderLayout());
-			p.setPreferredSize(new Dimension(width, 30));
+			p.setPreferredSize(this.panelSize);
 			p.setName("panel " +String.valueOf(i));
-			//inner data of jpanel
-			JLabel l = new JLabel();
-			l.setText("   " + myBook.title + "\n");
 			//creation of button that goes to the domain
 			JButton b = new JButton();
-			b.setPreferredSize(new Dimension(30, 30));
+			b.setPreferredSize(new Dimension(100, 50));
 			//sets the img TODO get this to work
 			String imgIcon = myBook.og_image;
 			if(imgIcon == null) imgIcon = myBook.displayLink;
@@ -84,16 +85,30 @@ public class FramePanel extends JPanel{
                 }
             });
 
+			JPanel panel = new JPanel();
+			panel.setPreferredSize(this.innerPanelSize);
+			panel.setLayout(new FlowLayout());
+			//inner data of jpanel
+			JLabel title = new JLabel("Title: " + myBook.title);
+			title.setPreferredSize(this.innerTextSize);
+			JLabel fileFormat = new JLabel("File Format: " + myBook.fileFormat);
+			fileFormat.setPreferredSize(this.innerTextSize);
+			JLabel snippet = new JLabel(myBook.snippet);
+			snippet.setPreferredSize(this.innerTextSize);
+			panel.add(title);
+			panel.add(fileFormat);
+			panel.add(snippet);
+
 			//color of the panels
 			if(i % 2 == 0){
-				p.setBackground(Color.LIGHT_GRAY);
+				panel.setBackground(Color.LIGHT_GRAY);
 			}
 			else{
-				p.setBackground(Color.WHITE);
+				panel.setBackground(Color.WHITE);
 			}
 
 			//adds everything to the correct parent
-			p.add(l, BorderLayout.WEST);
+			p.add(panel, BorderLayout.WEST);
 			p.add(b, BorderLayout.EAST);
 			this.add(p);
 		}
