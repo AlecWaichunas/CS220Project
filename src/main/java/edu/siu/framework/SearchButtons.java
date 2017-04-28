@@ -4,11 +4,13 @@ import edu.siu.datastructures.LinkedList;
 import edu.siu.datastructures.PriorityQueue;
 import edu.siu.google.query.DomainDetails;
 import edu.siu.sortingalgorithms.QuickSort;
+import edu.siu.sortingalgorithms.ShadowInsertionSort;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 
 /**
  * Created by Alec on 4/22/2017.
@@ -52,7 +54,38 @@ public class SearchButtons extends JPanel {
                 updateBooks();
             }
         });
-        //JButton keyWords = new JButton("Description"); //most key words in description
+        JButton keywords = new JButton("Description"); //most key words in description
+        keywords.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                /*
+                 * DISCLAIMER
+                 * The spelling of the user will effect this sort
+                 */
+                //get the books into an array
+                DomainDetails[] myBooks = books.toArray(DomainDetails.class);
+                //get the key words from the snippet
+                Integer[] numKeyWords = new Integer[myBooks.length];
+                String[] myKeyWords = keyWords.split(" ");
+                for(int i = 0; i < myBooks.length; i++){
+                    int count = 0;
+                    //counts the key words
+                    for(int c = 0; c < myKeyWords.length; c++){
+                        if(myBooks[i].snippet.toLowerCase().contains(myKeyWords[c].toLowerCase()))
+                            count++;
+                    }
+                    numKeyWords[i] = count;
+                }
+
+                ShadowInsertionSort.sort(new Comparator<Integer>() {
+                    public int compare(Integer o1, Integer o2) {
+                        return o1.compareTo(o2);
+                    }
+                }, myBooks, numKeyWords, 0, myBooks.length - 1);
+
+                sortedBooks = LinkedList.ArrayToLinkedList(myBooks);
+                updateBooks();
+            }
+        });
         JButton fileFormat = new JButton("File Format"); //use priority queue
         fileFormat.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e){
@@ -77,11 +110,12 @@ public class SearchButtons extends JPanel {
         buttons.add(topResult);
         buttons.add(title);
         buttons.add(fileFormat);
+        buttons.add(keywords);
 
         //adds every search term to it
         add(topResult);
         add(title);
-        //add(keyWords);
+        add(keywords);
         add(fileFormat);
 
     }

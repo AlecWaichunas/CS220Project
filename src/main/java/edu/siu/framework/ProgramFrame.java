@@ -31,6 +31,7 @@ public class ProgramFrame {
         north.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         north.setSize(WIDTH, HEIGHT);
         north.setResizable(false);
+        north.setLocationRelativeTo(null);
         north.setVisible(true);
     }
 
